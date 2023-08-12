@@ -8,13 +8,14 @@ use Illuminate\Http\Request;
 class RecipeController extends Controller
 {
     public function index() {
-        $recipes = Recipe::find(1);
+//        $recipes = Recipe::find(1);
         $recipes = Recipe::all();
-        $recipes = Recipe::where('state', Recipe::STATE_ACTIVE)->get();
-        foreach ($recipes as $recipe) {
-            dump($recipe->title);
-        }
-        dd('end');
+//        $recipes = Recipe::where('state', Recipe::STATE_ACTIVE)->get();
+//        foreach ($recipes as $recipe) {
+//            dump($recipe->title);
+//        }
+
+        return view('recipes', compact('recipes'));
     }
 
     public function create() {
