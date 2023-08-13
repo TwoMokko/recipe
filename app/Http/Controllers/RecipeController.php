@@ -15,36 +15,47 @@ class RecipeController extends Controller
 //            dump($recipe->title);
 //        }
 
-        return view('recipes', compact('recipes'));
+        return view('recipe.index', compact('recipes'));
     }
 
     public function create() {
-        $recipesArr = [
-            [
-                'title' => 'Борщ',
-                'description' => 'суп вкусный',
-                'image' => 'img',
-                'cooking time' => '20',
-            ]
-        ];
-
-        Recipe::create([
-            'title' => 'Сырники',
-            'description' => 'завтрак супер',
-            'image' => 'img',
-            'cooking time' => '30',
-        ]);
-
-        dd('created');
+        return view('recipe.create');
     }
 
-    public function update() {
-        $recipe = Recipe::find(1);
-        $recipe->update([
-            'title' => 'Брауни',
+    public function store(){
+        $data = \request()->validate([
+            'title'             => 'string',
+            'description'       => 'string',
+            'image'             => 'string',
+            'cooking_time'      => 'string',
+        ]);
+        Recipe::create($data);
+        return redirect()->route('recipe.index');
+    }
+
+    public function show(Recipe $recipe) {
+//        $recipe = Recipe::findOrFail($id);
+        return view('recipe.show', compact('recipe'));
+    }
+
+    public function edit(Recipe $recipe) {
+       return view('recipe.edit', compact('recipe'));
+    }
+
+    public function update(Recipe $recipe) {
+//        $recipe = Recipe::find(1);
+//        $recipe->update([
+//            'title' => 'Брауни',
+//        ]);
+        $data = \request()->validate([
+            'title'             => 'string',
+            'description'       => 'string',
+            'image'             => 'string',
+            'cooking_time'      => 'string',
         ]);
 
-        dd('updated');
+        $recipe->update($data);
+        return redirect()->route('recipe.show', $recipe->id);
     }
 
     public function delete() {
@@ -53,5 +64,10 @@ class RecipeController extends Controller
 //        $recipe->delete();
 
         dd('deleted');
+    }
+
+    public function destroy(Recipe $recipe) {
+        $recipe->delete();
+        return redirect()->route('recipe.index');
     }
 }

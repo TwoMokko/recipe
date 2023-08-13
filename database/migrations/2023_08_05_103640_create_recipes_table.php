@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->string('image')->nullable();
-            $table->time('cooking time');
-            $table->unsignedSmallInteger('state')->default(Recipe::STATE_DRAFT);
+            $table->time('cooking_time');
+            $table->boolean('is_published')->default(1);
             $table->timestamps();
 
             $table->softDeletes();
