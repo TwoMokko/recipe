@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
 
@@ -9,13 +10,19 @@ class RecipeController extends Controller
 {
     public function index() {
 //        $recipes = Recipe::find(1);
-        $recipes = Recipe::all();
+//        $recipes = Recipe::all();
+
+        $category = Category::find(1);
+        $recipe = Recipe::find(1);
+//        $recipes = Recipe::where('category_id', $category->id)->get();
+//
+        dd($recipe->category);
 //        $recipes = Recipe::where('state', Recipe::STATE_ACTIVE)->get();
 //        foreach ($recipes as $recipe) {
 //            dump($recipe->title);
 //        }
 
-        return view('recipe.index', compact('recipes'));
+//        return view('recipe.index', compact('recipes'));
     }
 
     public function create() {

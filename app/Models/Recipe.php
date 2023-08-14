@@ -11,13 +11,11 @@ class Recipe extends Model
     use HasFactory;
     use SoftDeletes;
 
-    const STATE_ERROR               = 0;
-    const STATE_DRAFT               = 1;
-    const STATE_ACTIVE              = 2;
-    const STATE_ARCHIVE             = 3;
-    const STATE_DELETE              = 100;
-
     protected $table = 'recipes';
 //    protected $guarded = [];
     protected $guarded = false;
+
+    public function category() {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
 }
