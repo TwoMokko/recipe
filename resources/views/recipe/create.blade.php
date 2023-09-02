@@ -19,6 +19,15 @@
                 <label for="cooking_time" class="form-label">Cooking time</label>
                 <input type="time" name="cooking_time" class="form-control" id="cooking_time" placeholder="cooking time">
             </div>
+            <div class="mb-3">
+                <label for="category" class="form-label">Category</label>
+                <select class="form-select" name="category_id" aria-label="category">
+                    <option selected>Select category</option>
+                    @foreach($categories as $category)
+                    <option value="{{$category->id}}">{{$category->title}}</option>
+                    @endforeach
+                </select>
+            </div>
             <button type="submit" class="btn btn-primary">Create</button>
         </form>
     </div>

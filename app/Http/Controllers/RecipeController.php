@@ -10,23 +10,25 @@ class RecipeController extends Controller
 {
     public function index() {
 //        $recipes = Recipe::find(1);
-//        $recipes = Recipe::all();
+        $recipes = Recipe::all();
 
-        $category = Category::find(1);
-        $recipe = Recipe::find(1);
+//        $category = Category::find(1);
+//        $recipe = Recipe::find(3);
 //        $recipes = Recipe::where('category_id', $category->id)->get();
 //
-        dd($recipe->category);
+//        dd($recipe->ingredients);
 //        $recipes = Recipe::where('state', Recipe::STATE_ACTIVE)->get();
 //        foreach ($recipes as $recipe) {
 //            dump($recipe->title);
 //        }
 
-//        return view('recipe.index', compact('recipes'));
+        return view('recipe.index', compact('recipes'));
     }
 
     public function create() {
-        return view('recipe.create');
+        $categories = Category::all();
+
+        return view('recipe.create', compact('categories'));
     }
 
     public function store(){
@@ -35,6 +37,7 @@ class RecipeController extends Controller
             'description'       => 'string',
             'image'             => 'string',
             'cooking_time'      => 'string',
+            'category_id'       => '',
         ]);
         Recipe::create($data);
         return redirect()->route('recipe.index');
@@ -46,7 +49,8 @@ class RecipeController extends Controller
     }
 
     public function edit(Recipe $recipe) {
-       return view('recipe.edit', compact('recipe'));
+        $categories = Category::all();
+       return view('recipe.edit', compact('recipe', 'categories'));
     }
 
     public function update(Recipe $recipe) {
@@ -59,6 +63,7 @@ class RecipeController extends Controller
             'description'       => 'string',
             'image'             => 'string',
             'cooking_time'      => 'string',
+            'category_id'       => '',
         ]);
 
         $recipe->update($data);
