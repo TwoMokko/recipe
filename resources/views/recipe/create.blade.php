@@ -28,6 +28,16 @@
                     @endforeach
                 </select>
             </div>
+            <div>
+               @foreach($ingredients as $ingredient)
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" name="ingredients[]" value="{{ $ingredient->id }}">
+                        {{ $ingredient->name }}
+                    </label>
+                </div>
+                @endforeach
+            </div>
             <button type="submit" class="btn btn-primary">Create</button>
         </form>
     </div>

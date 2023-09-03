@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Ingredient;
+use App\Models\IngredientRecipe;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
 
@@ -27,8 +29,9 @@ class RecipeController extends Controller
 
     public function create() {
         $categories = Category::all();
+        $ingredients = Ingredient::all();
 
-        return view('recipe.create', compact('categories'));
+        return view('recipe.create', compact('categories', 'ingredients'));
     }
 
     public function store(){
@@ -38,8 +41,15 @@ class RecipeController extends Controller
             'image'             => 'string',
             'cooking_time'      => 'string',
             'category_id'       => '',
+            'ingredients'       => '',
         ]);
-        Recipe::create($data);
+        $ingredients = $data['ingredients'];
+        unset($data['ingredients']);
+
+        $recipe = Recipe::create($data);
+
+        $recipe->ingredients()->attach($ingredients);
+
         return redirect()->route('recipe.index');
     }
 
@@ -50,7 +60,9 @@ class RecipeController extends Controller
 
     public function edit(Recipe $recipe) {
         $categories = Category::all();
-       return view('recipe.edit', compact('recipe', 'categories'));
+        $ingredients = Ingredient::all();
+
+       return view('recipe.edit', compact('recipe', 'categories', 'ingredients'));
     }
 
     public function update(Recipe $recipe) {
@@ -64,9 +76,13 @@ class RecipeController extends Controller
             'image'             => 'string',
             'cooking_time'      => 'string',
             'category_id'       => '',
+            'ingredients'       => '',
         ]);
+        $ingredients = $data['ingredients'];
+        unset($data['ingredients']);
 
         $recipe->update($data);
+        $recipe->ingredients()->sync($ingredients);
         return redirect()->route('recipe.show', $recipe->id);
     }
 

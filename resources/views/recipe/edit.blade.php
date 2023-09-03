@@ -1,6 +1,15 @@
 @extends('layouts.main')
 @section('content')
+    <?php
+    $func = function($recipe, $ingredient) {
+        foreach ($recipe->ingredients as $recipeIngredient) {
+            if ($recipeIngredient->id == $ingredient->id) return true;
+        }
+        return false;
+    };
+    ?>
     <div>
+{{--        {{dd($recipe->ingredients)}}--}}
         <form action="{{ route('recipe.update', $recipe->id) }}" method="post">
             @csrf
             @method('patch')
@@ -30,6 +39,16 @@
                             value="{{$category->id}}">{{$category->title}}</option>
                     @endforeach
                 </select>
+            </div>
+            <div>
+                @foreach($ingredients as $ingredient)
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox" name="ingredients[]" value="{{ $ingredient->id }}" {{ $func($recipe, $ingredient) ? 'checked="checked"' : '' }}>
+                            {{ $ingredient->name }}
+                        </label>
+                    </div>
+                @endforeach
             </div>
             <button type="submit" class="btn btn-primary">Update</button>
         </form>
