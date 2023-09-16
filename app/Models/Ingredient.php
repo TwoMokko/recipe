@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Ingredient extends Model
 {
     use HasFactory;
+    protected $guarded = false;
 
     public function recipes() {
         return $this->belongsToMany(Recipe::class, 'ingredient_recipes', 'ingredient_id', 'recipe_id');

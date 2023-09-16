@@ -71,12 +71,12 @@ class RecipeController extends Controller
 //            'title' => 'Брауни',
 //        ]);
         $data = \request()->validate([
-            'title'             => 'string',
+            'title'             => 'required|string',
             'description'       => 'string',
             'image'             => 'string',
             'cooking_time'      => 'string',
-            'category_id'       => '',
-            'ingredients'       => '',
+            'category_id'       => 'required',
+            'ingredients'       => 'required',
         ]);
         $ingredients = $data['ingredients'];
         unset($data['ingredients']);

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Recipe;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\MainController;
@@ -16,20 +17,22 @@ use App\Http\Controllers\MainController;
 */
 
 Route::get('/', function () {
-    return 'hkggfh';
+    return 'aaa';
 });
 
 
+Route::group(['namespace' => ''], function() {
+    Route::get('/recipe', Recipe\IndexController::class)->name('recipe.index');
+    Route::get('/recipe/create', Recipe\CreateController::class)->name('recipe.create');
+
+    Route::post('/recipe', Recipe\StoreController::class)->name('recipe.store');
+    Route::get('/recipe/{recipe}', Recipe\ShowController::class)->name('recipe.show');
+    Route::get('/recipe/{recipe}/edit', Recipe\EditController::class)->name('recipe.edit');
+    Route::patch('/recipe/{recipe}', Recipe\UpdateController::class)->name('recipe.update');
+    Route::delete('/recipe/{recipe}', Recipe\DestroyController::class)->name('recipe.delete');
+});
 
 
-Route::get('/recipe', [RecipeController::class, 'index'])->name('recipe.index');
-Route::get('/recipe/create', [RecipeController::class, 'create'])->name('recipe.create');
-
-Route::post('/recipe', [RecipeController::class, 'store'])->name('recipe.store');
-Route::get('/recipe/{recipe}', [RecipeController::class, 'show'])->name('recipe.show');
-Route::get('/recipe/{recipe}/edit', [RecipeController::class, 'edit'])->name('recipe.edit');
-Route::patch('/recipe/{recipe}', [RecipeController::class, 'update'])->name('recipe.update');
-Route::delete('/recipe/{recipe}', [RecipeController::class, 'destroy'])->name('recipe.delete');
 
 Route::get('/recipe/update', [RecipeController::class, 'update']);
 Route::get('/recipe/delete', [RecipeController::class, 'delete']);
