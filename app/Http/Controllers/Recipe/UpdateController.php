@@ -3,25 +3,17 @@
 namespace App\Http\Controllers\Recipe;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Recipe\UpdateRequest;
 use App\Models\Recipe;
 
-class UpdateController extends Controller
+class UpdateController extends BaseController
 {
-    public function __invoke(Recipe $recipe)
+    public function __invoke(UpdateRequest $request, Recipe $recipe)
     {
-        $data = \request()->validate([
-            'title'             => 'required|string',
-            'description'       => 'string',
-            'image'             => 'string',
-            'cooking_time'      => 'string',
-            'category_id'       => 'required',
-            'ingredients'       => 'required',
-        ]);
-        $ingredients = $data['ingredients'];
-        unset($data['ingredients']);
+        $data = $request->validated();
 
-        $recipe->update($data);
-        $recipe->ingredients()->sync($ingredients);
+        $this->service->update($recipe, $data);
+
         return redirect()->route('recipe.show', $recipe->id);
     }
 }

@@ -7,7 +7,7 @@ use App\Models\Category;
 use App\Models\Ingredient;
 use App\Models\Recipe;
 
-class EditController extends Controller
+class EditController extends BaseController
 {
     public function __invoke(Recipe $recipe)
     {

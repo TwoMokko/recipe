@@ -3,26 +3,16 @@
 namespace App\Http\Controllers\Recipe;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Recipe\StoreRequest;
 use App\Models\Recipe;
 
-class StoreController extends Controller
+class StoreController extends BaseController
 {
-    public function __invoke()
+    public function __invoke(StoreRequest $request)
     {
-        $data = \request()->validate([
-            'title'             => 'string',
-            'description'       => 'string',
-            'image'             => 'string',
-            'cooking_time'      => 'string',
-            'category_id'       => '',
-            'ingredients'       => '',
-        ]);
-        $ingredients = $data['ingredients'];
-        unset($data['ingredients']);
+        $data = $request->validated();
 
-        $recipe = Recipe::create($data);
-
-        $recipe->ingredients()->attach($ingredients);
+        $this->service->store($data);
 
         return redirect()->route('recipe.index');
     }

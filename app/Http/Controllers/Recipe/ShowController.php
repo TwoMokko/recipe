@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Recipe;
 use App\Http\Controllers\Controller;
 use App\Models\Recipe;
 
-class ShowController extends Controller
+class ShowController extends BaseController
 {
     public function __invoke(Recipe $recipe)
     {

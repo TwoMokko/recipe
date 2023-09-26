@@ -65,7 +65,7 @@
                     @foreach($categories as $category)
                         <option
                             {{ $checkCategory($category->id, $recipe->category_id, old('category_id')) ? 'selected' : '' }}
-                            value="{{$category->id}}">{{$category->id}}</option>
+                            value="{{$category->id}}">{{$category->title}}</option>
                     @endforeach
                 </select>
                 @error('category_id')
