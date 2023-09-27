@@ -7,6 +7,10 @@
         @foreach($recipes as $recipe)
             <div><a href="{{ route('recipe.show', $recipe->id) }}">{{ $recipe->id }}. {{ $recipe->title }}</a></div>
         @endforeach
+
+        <div class="mt-3">
+            {{ $recipes->links() }}
+        </div>
     </div>
 @endsection
 

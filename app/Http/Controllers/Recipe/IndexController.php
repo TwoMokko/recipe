@@ -9,7 +9,7 @@ class IndexController extends BaseController
 {
     public function __invoke()
     {
-        $recipes = Recipe::all();
+        $recipes = Recipe::paginate(4);
         return view('recipe.index', compact('recipes'));
     }
 }
