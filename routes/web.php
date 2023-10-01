@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Recipe;
+use App\Http\Controllers\Admin;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\MainController;
@@ -32,9 +33,15 @@ Route::group(['namespace' => ''], function() {
     Route::delete('/recipe/{recipe}', Recipe\DestroyController::class)->name('recipe.delete');
 });
 
-
+Route::group(['namespace' => '', 'prefix' => 'admin'], function() {
+    Route::group([], function() {
+        Route::get('/recipe', Admin\Recipe\IndexController::class)->name('admin.recipe.index');
+    });
+});
 
 Route::get('/recipe/update', [RecipeController::class, 'update']);
 Route::get('/recipe/delete', [RecipeController::class, 'delete']);
 
+
 Route::get('/main', [MainController::class, 'index'])->name('main.index');
+//Route::get('/admin/recipe', Admin\Recipe\IndexController::class)->name('admin.recipe.index');
