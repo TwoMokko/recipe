@@ -20,6 +20,9 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
                             <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="{{route('profile')}}">Авторизация</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="{{route('main.index')}}">Главная</a>
                             </li>
                             <li class="nav-item">
